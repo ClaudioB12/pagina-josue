@@ -54,7 +54,8 @@ export const productos = {
     ],
     datoEtiqueta: 'Precio:',
     datoValor: '[PRECIO / PLANES MENSUALES]',
-    accion: { etiqueta: 'Probar Qhatu Resto', destino: '#contacto' },
+    // El espacio de «Qhatu Resto» es de no separación: el nombre del producto no se parte entre líneas
+    accion: { etiqueta: 'Probar Qhatu\u00A0Resto', destino: '#contacto' },
   },
   clinica: {
     sobrenombre: 'Clínica de Salud Mental',

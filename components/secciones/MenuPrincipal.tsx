@@ -113,73 +113,76 @@ export function MenuPrincipal({ enlaces, accion, etiquetaBoton, etiquetaNavegaci
   };
 
   return (
-    <div ref={contenedor} className={estilos.menu} onBlur={alSalirElFoco}>
-      <button
-        ref={boton}
-        type="button"
-        className={estilos.botonMenu}
-        aria-label={etiquetaBoton}
-        aria-expanded={abierto}
-        aria-controls={idPanel}
-        onClick={alternar}
-      >
-        <Icono nombre="menu" className={unirClases(estilos.icono, estilos.iconoMenu)} />
-        <Icono nombre="cerrar" className={unirClases(estilos.icono, estilos.iconoCerrar)} />
-      </button>
+    <>
+      {/* Queda fuera del contenedor del menú: tocarlo es «pulsar fuera» y lo cierra */}
+      <div className={estilos.velo} data-abierto={abierto} data-inmediato={inmediato} aria-hidden="true" />
 
-      <div className={estilos.velo} data-abierto={abierto} data-inmediato={inmediato} aria-hidden="true" onClick={cerrar} />
-
-      <div className={estilos.marcoPanel}>
-        <nav
-          id={idPanel}
-          className={estilos.panel}
-          aria-label={etiquetaNavegacion}
-          data-abierto={abierto}
-          data-inmediato={inmediato}
+      <div ref={contenedor} className={estilos.menu} onBlur={alSalirElFoco}>
+        <button
+          ref={boton}
+          type="button"
+          className={estilos.botonMenu}
+          aria-label={etiquetaBoton}
+          aria-expanded={abierto}
+          aria-controls={idPanel}
+          onClick={alternar}
         >
-          <ul className={estilos.lista} role="list">
-            {enlaces.map((enlace) => (
-              <li key={enlace.destino}>
-                <a
-                  className={estilos.enlace}
-                  href={enlace.destino}
-                  aria-current={enlace.destino === seccionActual ? 'location' : undefined}
-                  onClick={cerrar}
-                >
-                  {enlace.etiqueta}
-                </a>
-              </li>
-            ))}
-          </ul>
-          <Boton
-            className={estilos.accion}
-            href={accion.destino}
-            tamano="sm"
-            externo
-            anchoCompletoEnMovil={false}
-            onClick={cerrar}
-          >
-            {accion.etiqueta}
-          </Boton>
-        </nav>
-      </div>
+          <Icono nombre="menu" className={unirClases(estilos.icono, estilos.iconoMenu)} />
+          <Icono nombre="cerrar" className={unirClases(estilos.icono, estilos.iconoCerrar)} />
+        </button>
 
-      {/*
-        Sin JavaScript no hay botón que abra el menú: en móvil se muestra
-        desplegado y el encabezado deja de quedarse fijo, para no tapar la página.
-        En escritorio los enlaces ya están a la vista.
-      */}
-      <noscript>
-        <style>{`
-          @media (max-width: 61.99rem) {
-            header:has(.${estilos.menu}) { position: static; }
-            .${estilos.botonMenu}, .${estilos.velo} { display: none; }
-            .${estilos.menu} { flex-basis: 100%; }
-            .${estilos.marcoPanel} { position: static; padding: 0; overflow: visible; pointer-events: auto; }
-            .${estilos.panel} { padding: 0; border: 0; box-shadow: none; visibility: visible; opacity: 1; transform: none; transition: none; }
-          }
-        `}</style>
-      </noscript>
-    </div>
+        <div className={estilos.marcoPanel}>
+          <nav
+            id={idPanel}
+            className={estilos.panel}
+            aria-label={etiquetaNavegacion}
+            data-abierto={abierto}
+            data-inmediato={inmediato}
+          >
+            <ul className={estilos.lista} role="list">
+              {enlaces.map((enlace) => (
+                <li key={enlace.destino}>
+                  <a
+                    className={estilos.enlace}
+                    href={enlace.destino}
+                    aria-current={enlace.destino === seccionActual ? 'location' : undefined}
+                    onClick={cerrar}
+                  >
+                    {enlace.etiqueta}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <Boton
+              className={estilos.accion}
+              href={accion.destino}
+              tamano="sm"
+              externo
+              anchoCompletoEnMovil={false}
+              onClick={cerrar}
+            >
+              {accion.etiqueta}
+            </Boton>
+          </nav>
+        </div>
+
+        {/*
+          Sin JavaScript no hay botón que abra el menú: en móvil se muestra
+          desplegado y el encabezado deja de quedarse fijo, para no tapar la página.
+          En escritorio los enlaces ya están a la vista.
+        */}
+        <noscript>
+          <style>{`
+            @media (max-width: 61.99rem) {
+              header:has(.${estilos.menu}) { position: static; }
+              .${estilos.botonMenu}, .${estilos.velo} { display: none; }
+              .${estilos.menu} { flex-basis: 100%; }
+              .${estilos.marcoPanel} { position: static; padding: 0; overflow: visible; pointer-events: auto; }
+              .${estilos.panel} { padding: 0; border: 0; box-shadow: none; max-height: none; overflow: visible; visibility: visible; opacity: 1; transform: none; transition: none; }
+            }
+          `}</style>
+        </noscript>
+      </div>
+    </>
   );
 }

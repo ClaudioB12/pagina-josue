@@ -11,7 +11,7 @@ function MarcadorQhatu() {
   return (
     <>
       <div className={estilos.qhatuBarra}>
-        <span className={estilos.qhatuNombre}>
+        <span className={estilos.qhatuNombre} translate="no">
           <strong>Qhatu</strong> Resto
         </span>
         <span className={estilos.marcador}>{hero.capturaQhatu}</span>
@@ -37,7 +37,9 @@ function MarcadorErp() {
   return (
     <>
       <div className={estilos.erpBarra}>
-        <span className={estilos.erpNombre}>{hero.nombreClinicaCorto}</span>
+        <span className={estilos.erpNombre} translate="no">
+          {hero.nombreClinicaCorto}
+        </span>
         <span className={estilos.erpMarcador}>{hero.capturaErp}</span>
       </div>
       <div className={estilos.erpBloques}>

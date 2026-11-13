@@ -25,6 +25,7 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  min-width: 0;
 }
 
 .lema {
@@ -33,6 +34,7 @@
 
 .navegacion {
   flex: 1 1 160px;
+  min-width: 0;
   font-size: var(--tamano-chico);
 }
 
@@ -50,7 +52,9 @@
   flex: 1 1 220px;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
   font-size: var(--tamano-chico);
+  overflow-wrap: anywhere; /* un correo o una dirección largos se parten antes que desbordar */
 }
 
 .enlace {

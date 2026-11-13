@@ -12,7 +12,7 @@ export function SelloOchoaSoft({ className }: PropsSello) {
     <span className={unirClases(estilos.sello, className)}>
       <span>by</span>
       <SimboloInfinito trazo={13} className={estilos.simbolo} />
-      <span className={estilos.nombre}>
+      <span className={estilos.nombre} translate="no">
         <strong>Ochoa</strong>Soft
       </span>
     </span>

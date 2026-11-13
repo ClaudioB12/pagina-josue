@@ -99,7 +99,7 @@ export function Logo({ variant = 'color', tamano = 'md', className }: PropsLogo)
   return (
     <span className={unirClases(estilos.logo, estilos[variant], estilos[tamano], className)}>
       <SimboloInfinito variant={variant} className={estilos.simboloDelLogo} />
-      <span className={estilos.nombre}>
+      <span className={estilos.nombre} translate="no">
         <span className={estilos.ochoa}>Ochoa</span>
         <span className={estilos.soft}>Soft</span>
       </span>

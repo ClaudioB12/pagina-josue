@@ -51,6 +51,13 @@
   min-height: 46px;
   border-radius: var(--radio-chico);
   text-decoration: none;
+  transition: opacity var(--duracion-color) ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .marca:hover {
+    opacity: 0.8;
+  }
 }
 
 /* Con el menú en fila, el logo y los enlaces nunca se reparten en dos líneas */
