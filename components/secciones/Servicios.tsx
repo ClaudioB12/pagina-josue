@@ -14,7 +14,7 @@ export function Servicios() {
 
         <ul className={estilos.lista} role="list">
           {servicios.lista.map((servicio) => (
-            <Tarjeta key={servicio.titulo} como="li" className={estilos.servicio}>
+            <Tarjeta key={servicio.titulo} como="li" revelar className={estilos.servicio}>
               <span className={estilos.icono}>
                 <Icono nombre={servicio.icono} tamano={26} />
               </span>

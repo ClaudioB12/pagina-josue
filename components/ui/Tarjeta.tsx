@@ -10,13 +10,25 @@ interface PropsTarjeta {
   variante?: 'plana' | 'elevada';
   /** Espacio interior. `ninguno` cuando el contenido trae sus propias franjas. */
   relleno?: 'ninguno' | 'md' | 'lg';
+  /** Aparece al entrar en pantalla (ver `RevelarAlEntrar`). */
+  revelar?: boolean;
   className?: string;
 }
 
 /** Superficie blanca de esquinas redondeadas. */
-export function Tarjeta({ children, como: Etiqueta = 'div', variante = 'plana', relleno = 'lg', className }: PropsTarjeta) {
+export function Tarjeta({
+  children,
+  como: Etiqueta = 'div',
+  variante = 'plana',
+  relleno = 'lg',
+  revelar = false,
+  className,
+}: PropsTarjeta) {
   return (
-    <Etiqueta className={unirClases(estilos.tarjeta, estilos[variante], estilos[`relleno-${relleno}`], className)}>
+    <Etiqueta
+      className={unirClases(estilos.tarjeta, estilos[variante], estilos[`relleno-${relleno}`], className)}
+      data-revelar={revelar ? '' : undefined}
+    >
       {children}
     </Etiqueta>
   );

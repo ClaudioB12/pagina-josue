@@ -5,28 +5,54 @@
 .contenido {
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 5vw, 48px);
+  gap: var(--espacio-bloque);
 }
 
+/* Dos columnas en cuanto caben dos tarjetas de 420 px */
 .tarjetas {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
   gap: 28px;
 }
 
 .producto {
+  --acento: var(--color-gris-400);
+
+  position: relative;
   display: flex;
-  flex: 1 1 420px;
   flex-direction: column;
   min-width: 0;
+  transition: transform var(--duracion-cierre) var(--curva-salida);
+}
+
+.productoQhatu {
+  --acento: var(--color-qhatu-detalle);
+}
+
+/*
+ * La sombra elevada vive en una capa propia: al pasar el cursor solo cambia
+ * su opacidad, que el navegador anima sin repintar la tarjeta.
+ */
+.producto::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  box-shadow: var(--sombra-elevada);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duracion-cierre) var(--curva-salida);
 }
 
 .cabecera {
   display: flex;
   flex-wrap: wrap;
+  align-content: center;
   align-items: center;
   gap: 16px 20px;
   padding: 28px 32px;
+  /* Sigue la curva de la tarjeta por dentro de su borde de 1 px */
+  border-radius: calc(var(--radio-grande) - 1px) calc(var(--radio-grande) - 1px) 0 0;
 }
 
 .cabeceraQhatu {
@@ -71,7 +97,7 @@
 }
 
 .sobrenombre {
-  font-size: 0.6875rem; /* 11 px */
+  font-size: var(--tamano-nota);
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -89,7 +115,7 @@
   padding: 2px 10px;
   border: 1px dashed var(--color-gris-400);
   border-radius: var(--radio-pastilla);
-  font-size: 0.6875rem;
+  font-size: var(--tamano-nota);
   color: var(--color-texto-suave);
 }
 
@@ -110,7 +136,15 @@
   padding-left: 20px;
 }
 
+/* Cada lista lleva las viñetas del color de su producto */
+.funciones li::marker {
+  color: var(--acento);
+}
+
+/* Un filete separa las funciones del dato comercial */
 .dato {
+  padding-top: 18px;
+  border-top: 1px solid var(--color-borde);
   font-size: var(--tamano-chico);
   color: var(--color-texto-suave);
 }
@@ -128,6 +162,61 @@
 /* En el diseño estos botones son algo más compactos: 13 × 24 px contando el borde */
 .cuerpo .accion {
   padding: 12px 23px;
+}
+
+/*
+ * Las dos tarjetas comparten filas: cabecera, descripción, funciones, dato y
+ * acción empiezan a la misma altura aunque un texto ocupe más líneas.
+ */
+@supports (grid-template-rows: subgrid) {
+  .producto {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    row-gap: 0;
+  }
+
+  .cuerpo {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 4;
+    row-gap: 18px;
+  }
+
+  .accion {
+    align-self: end;
+    justify-self: start;
+    margin-top: 6px;
+  }
+}
+
+/*
+ * Con ratón, la tarjeta entera lleva a su acción y lo anuncia elevándose.
+ * En pantallas táctiles solo responde el botón, como siempre.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .accion::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radio-grande);
+  }
+
+  .producto:hover {
+    transform: translateY(-2px);
+    transition-duration: var(--duracion-gesto);
+  }
+
+  .producto:hover::after {
+    opacity: 1;
+    transition-duration: var(--duracion-gesto);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .producto:hover {
+    transform: none;
+  }
 }
 
 @media (max-width: 30rem) {

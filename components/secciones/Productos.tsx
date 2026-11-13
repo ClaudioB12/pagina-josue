@@ -17,9 +17,15 @@ export function Productos() {
         <EncabezadoSeccion idTitulo="titulo-productos" etiqueta={productos.etiqueta} titulo={productos.titulo} />
 
         <div className={estilos.tarjetas}>
-          <Tarjeta como="article" variante="elevada" relleno="ninguno" className={estilos.producto}>
+          <Tarjeta
+            como="article"
+            variante="elevada"
+            relleno="ninguno"
+            revelar
+            className={unirClases(estilos.producto, estilos.productoQhatu)}
+          >
             <div className={unirClases(estilos.cabecera, estilos.cabeceraQhatu)}>
-              <h3 className={estilos.nombreQhatu}>
+              <h3 className={estilos.nombreQhatu} translate="no">
                 <strong>Qhatu</strong> Resto
               </h3>
               <span className={estilos.separador} aria-hidden="true" />
@@ -41,11 +47,13 @@ export function Productos() {
             </div>
           </Tarjeta>
 
-          <Tarjeta como="article" variante="elevada" relleno="ninguno" className={estilos.producto}>
+          <Tarjeta como="article" variante="elevada" relleno="ninguno" revelar className={estilos.producto}>
             <div className={unirClases(estilos.cabecera, estilos.cabeceraClinica)}>
               <h3 className={estilos.nombreClinica}>
                 <span className={estilos.sobrenombre}>{clinica.sobrenombre}</span>{' '}
-                <span className={estilos.apellido}>{clinica.nombre}</span>
+                <span className={estilos.apellido} translate="no">
+                  {clinica.nombre}
+                </span>
               </h3>
               <span className={estilos.separador} aria-hidden="true" />
               <SelloOchoaSoft />

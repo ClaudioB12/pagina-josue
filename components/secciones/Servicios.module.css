@@ -24,6 +24,16 @@
   gap: 14px;
 }
 
+/* Las tarjetas de una fila comparten filas: icono, título y texto empiezan a la misma altura */
+@supports (grid-template-rows: subgrid) {
+  .servicio {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 3;
+    row-gap: 14px;
+  }
+}
+
 .icono {
   display: flex;
   align-items: center;
