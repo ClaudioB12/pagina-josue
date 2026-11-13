@@ -6,7 +6,7 @@
 .contenido {
   display: flex;
   flex-wrap: wrap;
-  gap: clamp(32px, 5vw, 48px);
+  gap: var(--espacio-bloque);
 }
 
 .intro {
@@ -32,8 +32,9 @@
 }
 
 .tituloRazon {
-  font-size: 1.125rem; /* 18 px */
+  font-size: var(--tamano-h3);
   font-weight: 600;
+  line-height: var(--interlineado-h3);
 }
 
 .textoRazon {

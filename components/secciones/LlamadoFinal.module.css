@@ -19,15 +19,17 @@
   height: 54px;
 }
 
+/* El cierre habla al tamaño del titular de la página: es su segunda voz, no un título más */
 .titulo {
-  font-size: var(--tamano-h2-llamado);
+  font-size: var(--tamano-h1);
   font-weight: 700;
-  line-height: 1.2;
+  line-height: var(--interlineado-h1);
+  letter-spacing: var(--espaciado-h1);
 }
 
 .texto {
   max-width: 560px;
-  font-size: 1.125rem;
+  font-size: var(--tamano-bajada);
   color: var(--color-azul-palido);
 }
 

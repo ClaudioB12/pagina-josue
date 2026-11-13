@@ -5,7 +5,7 @@
 .contenido {
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 5vw, 48px);
+  gap: var(--espacio-bloque);
 }
 
 .pasos {
@@ -55,8 +55,9 @@
 }
 
 .titulo {
-  font-size: 1.1875rem; /* 19 px */
+  font-size: var(--tamano-h3);
   font-weight: 600;
+  line-height: var(--interlineado-h3);
 }
 
 .texto {

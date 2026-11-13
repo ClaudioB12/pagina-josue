@@ -48,8 +48,8 @@
 .titulo {
   font-size: var(--tamano-h1);
   font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -1px;
+  line-height: var(--interlineado-h1);
+  letter-spacing: var(--espaciado-h1);
   color: var(--color-primario);
 }
 

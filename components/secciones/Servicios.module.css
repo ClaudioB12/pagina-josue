@@ -6,7 +6,7 @@
 .contenido {
   display: flex;
   flex-direction: column;
-  gap: clamp(32px, 5vw, 48px);
+  gap: var(--espacio-bloque);
 }
 
 .lista {
@@ -36,8 +36,9 @@
 }
 
 .titulo {
-  font-size: 1.3125rem; /* 21 px */
+  font-size: var(--tamano-h3);
   font-weight: 600;
+  line-height: var(--interlineado-h3);
   color: var(--color-texto);
 }
 
