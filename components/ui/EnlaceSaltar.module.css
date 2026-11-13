@@ -13,8 +13,7 @@
   transform: translateY(-200%);
 }
 
+/* Se muestra con cualquier foco; el anillo es el general del sitio (:focus-visible en globals.css) */
 .saltar:focus {
-  outline: 3px solid var(--color-azul-suave);
-  outline-offset: 2px;
   transform: none;
 }

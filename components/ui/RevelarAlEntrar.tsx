@@ -19,11 +19,13 @@ const LIMPIEZA_MS = 1600;
  *
  * El HTML llega con todo visible. Este componente solo oculta lo que al cargar
  * queda por debajo de la pantalla, así que sin JavaScript, o si este script
- * falla, no se pierde contenido. No dibuja nada.
+ * falla, no se pierde contenido. Con movimiento reducido no oculta nada. No
+ * dibuja nada.
  */
 export function RevelarAlEntrar() {
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const bloques = [...document.querySelectorAll<HTMLElement>('[data-revelar]')];
     const temporizadores = new Set<number>();
@@ -45,6 +47,9 @@ export function RevelarAlEntrar() {
 
     const observador = new IntersectionObserver(
       (entradas) => {
+        // Se lee una sola vez, antes de escribir nada: leer medidas entre
+        // escrituras obligaría al navegador a recalcular la página cada vez.
+        const altoDePantalla = window.innerHeight;
         let orden = 0;
         for (const entrada of entradas) {
           const bloque = entrada.target as HTMLElement;
@@ -53,7 +58,7 @@ export function RevelarAlEntrar() {
             // Primera noticia de un bloque que aún no entró: se oculta solo si
             // está entero por debajo de la pantalla, donde nadie lo ve cambiar.
             if (bloque.dataset.revelar !== '') continue;
-            if (entrada.boundingClientRect.top >= window.innerHeight) bloque.dataset.revelar = 'pendiente';
+            if (entrada.boundingClientRect.top >= altoDePantalla) bloque.dataset.revelar = 'pendiente';
             else observador.unobserve(bloque);
             continue;
           }
@@ -73,10 +78,22 @@ export function RevelarAlEntrar() {
       { rootMargin: '100000px 0px -12% 0px' },
     );
 
+    // El foco nunca cae sobre algo que no se ve: si el teclado llega a un bloque
+    // que aún espera su turno, aparece al instante.
+    const alEnfocar = (evento: FocusEvent) => {
+      if (!(evento.target instanceof Element)) return;
+      const bloque = evento.target.closest<HTMLElement>('[data-revelar="pendiente"]');
+      if (!bloque) return;
+      observador.unobserve(bloque);
+      soltar(bloque);
+    };
+
     for (const bloque of bloques) observador.observe(bloque);
+    document.addEventListener('focusin', alEnfocar);
 
     return () => {
       observador.disconnect();
+      document.removeEventListener('focusin', alEnfocar);
       for (const temporizador of temporizadores) window.clearTimeout(temporizador);
       for (const bloque of bloques) soltar(bloque);
     };

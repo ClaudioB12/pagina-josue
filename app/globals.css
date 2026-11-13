@@ -134,6 +134,15 @@ html {
   html {
     scroll-behavior: smooth;
   }
+
+  /*
+   * Con el teclado no hay desplazamiento animado: al tabular, el foco llega a
+   * su destino al instante, sin dejar al usuario mirando algo que aún no está
+   * en pantalla.
+   */
+  html:has(:focus-visible) {
+    scroll-behavior: auto;
+  }
 }
 
 /* En pantallas estrechas, lo que recibe el foco no queda bajo la barra de contacto */
@@ -226,15 +235,18 @@ html [data-revelar='visible'] {
   transition-delay: var(--retraso-revelar, 0ms);
 }
 
-/* Con movimiento reducido el bloque se funde en su sitio, sin desplazarse ni esperar turno */
+/*
+ * Con movimiento reducido no hay apariciones: el script no oculta nada y, si
+ * la preferencia cambia con la página abierta, todo queda en su estado final.
+ */
 @media (prefers-reduced-motion: reduce) {
   html [data-revelar='pendiente'] {
+    opacity: 1;
     transform: none;
   }
 
   html [data-revelar='visible'] {
-    transition-duration: 200ms;
-    transition-delay: 0ms;
+    transition: none;
   }
 }
 

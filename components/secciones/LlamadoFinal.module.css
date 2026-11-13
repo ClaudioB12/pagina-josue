@@ -80,15 +80,14 @@
   transition-delay: calc(280ms + var(--paso-escalonado) * 2);
 }
 
+/* Con movimiento reducido el bloque está completo desde el principio */
 @media (prefers-reduced-motion: reduce) {
   .contenido[data-revelar='pendiente'] > :not(.simbolo) {
+    opacity: 1;
     transform: none;
   }
 
-  .contenido[data-revelar='visible'] > :not(.simbolo),
-  .contenido[data-revelar='visible'] > .texto,
-  .contenido[data-revelar='visible'] > .acciones {
-    transition-duration: 200ms;
-    transition-delay: 0ms;
+  .contenido[data-revelar='visible'] > :not(.simbolo) {
+    transition: none;
   }
 }

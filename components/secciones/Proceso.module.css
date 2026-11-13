@@ -198,16 +198,16 @@
   }
 }
 
-/* Con movimiento reducido la línea ya está dibujada y el contenido se funde en su sitio */
+/* Con movimiento reducido la línea ya está dibujada y cada paso está en su sitio */
 @media (prefers-reduced-motion: reduce) {
   .paso[data-revelar='pendiente'] > *,
   .paso[data-revelar='pendiente']::before {
+    opacity: 1;
     transform: none;
   }
 
   .paso[data-revelar='visible'] > *,
   .paso[data-revelar='visible']::before {
-    transition-duration: 200ms;
-    transition-delay: 0ms;
+    transition: none;
   }
 }
