@@ -1,0 +1,23 @@
+.sello {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--color-texto-suave);
+  white-space: nowrap;
+}
+
+.simbolo {
+  width: 26px;
+  height: 17px;
+}
+
+.nombre {
+  font-size: 0.875rem;
+  color: var(--color-primario);
+}
+
+.nombre strong {
+  font-weight: 700;
+}

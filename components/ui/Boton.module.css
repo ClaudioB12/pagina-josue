@@ -1,0 +1,91 @@
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 14px 25px; /* más el borde: 26 px a los lados, como en el diseño */
+  border: 1.5px solid transparent;
+  border-radius: var(--radio-boton);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.chico {
+  min-height: 44px;
+  padding: 10px 19px; /* más el borde: 11 × 20 px, como en el diseño */
+  border-radius: 10px;
+  font-size: var(--tamano-chico);
+}
+
+.primario {
+  background: var(--color-primario);
+  color: #FFFFFF;
+}
+
+.primario:hover {
+  background: var(--color-primario-fuerte);
+}
+
+/* En el diseño, los botones de contorno suman su borde al relleno */
+.contorno,
+.contornoClaro {
+  padding-inline: 26px;
+}
+
+.contorno {
+  background: var(--color-fondo);
+  border-color: var(--color-primario);
+  color: var(--color-primario);
+}
+
+.contorno:hover {
+  background: var(--color-azul-tenue);
+}
+
+.qhatu {
+  background: var(--color-qhatu);
+  color: #FFFFFF;
+}
+
+.qhatu:hover {
+  background: var(--color-qhatu-fuerte);
+}
+
+.claro {
+  background: #FFFFFF;
+  color: var(--color-primario);
+}
+
+.claro:hover {
+  background: var(--color-azul-palido);
+}
+
+.contornoClaro {
+  background: transparent;
+  border-color: var(--color-azul-suave);
+  color: #FFFFFF;
+}
+
+.contornoClaro:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 30rem) {
+  .anchoCompletoEnMovil {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton {
+    transition: none;
+  }
+}

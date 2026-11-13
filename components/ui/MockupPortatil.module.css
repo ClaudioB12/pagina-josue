@@ -1,0 +1,29 @@
+.marco {
+  padding: 10px 10px 14px;
+  border-radius: 14px 14px 6px 6px;
+  background: var(--color-gris-800);
+  box-shadow: var(--sombra-mockup);
+}
+
+.pantalla {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--color-fondo);
+}
+
+.conCaptura {
+  aspect-ratio: 16 / 10;
+}
+
+.imagen {
+  object-fit: cover;
+  object-position: top;
+}
+
+.base {
+  height: 12px;
+  margin-inline: -18px;
+  border-radius: 0 0 14px 14px;
+  background: var(--color-gris-300);
+}

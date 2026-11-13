@@ -1,0 +1,83 @@
+/* Tintas de cada variante. Las heredan el símbolo y el nombre. */
+.color {
+  --logo-anillo-a: var(--color-primario);
+  --logo-anillo-b: var(--color-secundario);
+  --logo-ochoa: var(--color-primario);
+  --logo-soft: var(--color-secundario);
+}
+
+.blanco {
+  --logo-anillo-a: #FFFFFF;
+  --logo-anillo-b: var(--color-azul-suave);
+  --logo-ochoa: #FFFFFF;
+  --logo-soft: var(--color-azul-suave);
+}
+
+.oscuro {
+  --logo-anillo-a: var(--color-azul-medio);
+  --logo-anillo-b: #FFFFFF;
+  --logo-ochoa: #FFFFFF;
+  --logo-soft: var(--color-azul-medio);
+}
+
+.mono {
+  --logo-anillo-a: currentColor;
+  --logo-anillo-b: currentColor;
+  --logo-ochoa: currentColor;
+  --logo-soft: currentColor;
+}
+
+.simbolo {
+  display: block;
+  aspect-ratio: 100 / 64;
+}
+
+.anilloA {
+  stroke: var(--logo-anillo-a);
+}
+
+.anilloB {
+  stroke: var(--logo-anillo-b);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+
+.md {
+  font-size: 1.625rem; /* 26 px */
+}
+
+.sm {
+  font-size: 1.375rem; /* 22 px */
+  letter-spacing: 0;
+}
+
+/* 32 px de alto junto a un nombre de 26 px, como en el diseño */
+.simboloDelLogo {
+  height: 1.231em;
+  width: auto;
+}
+
+/* En el pie: 28 px de alto junto a un nombre de 22 px */
+.sm .simboloDelLogo {
+  height: 1.273em;
+}
+
+.nombre {
+  white-space: nowrap;
+}
+
+.ochoa {
+  font-weight: 700;
+  color: var(--logo-ochoa);
+}
+
+.soft {
+  font-weight: 400;
+  color: var(--logo-soft);
+}

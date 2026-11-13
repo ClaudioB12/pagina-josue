@@ -1,0 +1,35 @@
+.telefono {
+  width: 166px; /* 150 de pantalla + 8 de marco por lado */
+  padding: 8px;
+  border-radius: 22px;
+  background: var(--color-gris-800);
+  box-shadow: var(--sombra-mockup-fuerte);
+}
+
+.pantalla {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--color-fondo);
+}
+
+.imagen {
+  object-fit: cover;
+  object-position: top;
+}
+
+@media (max-width: 30rem) {
+  .telefono {
+    width: 134px;
+    padding: 7px;
+    border-radius: 20px;
+  }
+
+  .pantalla {
+    height: 206px;
+    border-radius: 14px;
+  }
+}

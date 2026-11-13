@@ -1,0 +1,25 @@
+.tarjeta {
+  background: var(--color-fondo);
+  border-radius: var(--radio-grande);
+}
+
+.elevada {
+  border: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-suave);
+  overflow: hidden;
+}
+
+.relleno-md {
+  padding: 24px;
+  border-radius: var(--radio-medio);
+}
+
+.relleno-lg {
+  padding: 32px;
+}
+
+@media (max-width: 30rem) {
+  .relleno-lg {
+    padding: 24px;
+  }
+}

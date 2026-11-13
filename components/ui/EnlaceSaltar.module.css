@@ -1,0 +1,20 @@
+.saltar {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 30;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--color-primario);
+  color: #FFFFFF;
+  font-size: var(--tamano-chico);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.saltar:focus {
+  outline: 3px solid var(--color-azul-suave);
+  outline-offset: 2px;
+  transform: none;
+}

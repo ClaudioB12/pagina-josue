@@ -1,0 +1,25 @@
+.encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 640px;
+}
+
+.etiqueta {
+  font-size: var(--tamano-etiqueta);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--color-secundario-texto);
+}
+
+.titulo {
+  font-size: var(--tamano-h2);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-primario);
+}
+
+.texto {
+  color: var(--color-texto-suave);
+}
