@@ -4,9 +4,8 @@
 }
 
 .botonMenu {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-grid;
+  place-items: center;
   width: 46px;
   height: 46px;
   padding: 0;
@@ -15,28 +14,104 @@
   background: var(--color-fondo);
   color: var(--color-primario);
   cursor: pointer;
+  transition:
+    background-color var(--duracion-color) ease,
+    transform var(--duracion-pulsacion) var(--curva-salida);
 }
 
-.botonMenu:hover {
-  background: var(--color-fondo-alterno);
+.botonMenu:active {
+  transform: scale(0.97);
 }
 
-/* Móvil: panel desplegable bajo el encabezado */
-.panel {
+/* Los dos iconos ocupan el mismo sitio y se relevan al abrir y cerrar */
+.icono {
+  grid-area: 1 / 1;
+  transition:
+    opacity var(--duracion-cierre) var(--curva-salida),
+    transform var(--duracion-cierre) var(--curva-salida);
+}
+
+.iconoCerrar {
+  opacity: 0;
+  transform: rotate(-45deg) scale(0.9);
+}
+
+.botonMenu[aria-expanded='true'] .iconoMenu {
+  opacity: 0;
+  transform: rotate(45deg) scale(0.9);
+}
+
+.botonMenu[aria-expanded='true'] .iconoCerrar {
+  opacity: 1;
+  transform: none;
+}
+
+/* Velo: atenúa la página mientras el menú está abierto y recoge el toque que lo cierra */
+.velo {
+  position: fixed;
+  inset: var(--alto-encabezado) 0 0;
+  background: rgba(17, 24, 39, 0.32);
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity var(--duracion-cierre) var(--curva-salida),
+    visibility 0s linear var(--duracion-cierre);
+}
+
+.velo[data-abierto='true'] {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity var(--duracion-gesto) var(--curva-salida),
+    visibility 0s;
+}
+
+/*
+ * Marco del panel: recorta lo que asome por encima, así el panel sale de
+ * debajo del encabezado sin taparlo ni manchar su borde con la sombra.
+ */
+.marcoPanel {
   position: absolute;
   top: 100%;
   left: 0;
   right: 0;
-  display: none;
+  padding-bottom: 40px; /* sitio para la sombra */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Móvil: panel que baja desde el encabezado. Llega en 200 ms y se va en 150. */
+.panel {
+  display: flex;
   flex-direction: column;
   padding: 8px var(--margen-lateral) 24px;
   background: var(--color-fondo);
   border-bottom: 1px solid var(--color-borde);
   box-shadow: var(--sombra-elevada);
+  pointer-events: auto;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--duracion-cierre) var(--curva-salida),
+    transform var(--duracion-cierre) var(--curva-salida),
+    visibility 0s linear var(--duracion-cierre);
 }
 
 .panel[data-abierto='true'] {
-  display: flex;
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity var(--duracion-gesto) var(--curva-salida),
+    transform var(--duracion-gesto) var(--curva-salida),
+    visibility 0s;
+}
+
+/* Lo que se pide con el teclado no se hace esperar: Escape cierra sin transición */
+.panel[data-inmediato='true'],
+.velo[data-inmediato='true'] {
+  transition: none;
 }
 
 .lista {
@@ -48,22 +123,37 @@
 }
 
 .enlace {
+  position: relative;
   display: flex;
   align-items: center;
   min-height: 48px;
+  border-radius: var(--radio-chico);
   font-size: 1rem;
   font-weight: 500;
   color: var(--color-texto);
   text-decoration: none;
+  transition: color var(--duracion-color) ease;
 }
 
-.enlace:hover {
+/* La sección que se está viendo queda marcada en el menú */
+.enlace[aria-current] {
   color: var(--color-secundario-texto);
 }
 
 .accion {
   width: 100%;
   margin-top: 12px;
+}
+
+/* El cursor solo resalta donde existe: en táctil el hover se queda pegado tras tocar */
+@media (hover: hover) and (pointer: fine) {
+  .botonMenu:hover {
+    background: var(--color-fondo-alterno);
+  }
+
+  .enlace:hover {
+    color: var(--color-secundario-texto);
+  }
 }
 
 /*
@@ -73,14 +163,20 @@
  * CONSULTA_ESCRITORIO en MenuPrincipal.tsx y con Encabezado.module.css.
  */
 @media (min-width: 62rem) {
-  .botonMenu {
+  .botonMenu,
+  .velo {
     display: none;
+  }
+
+  .marcoPanel {
+    position: static;
+    padding: 0;
+    overflow: visible;
+    pointer-events: auto;
   }
 
   .panel,
   .panel[data-abierto] {
-    position: static;
-    display: flex;
     flex-direction: row;
     align-items: center;
     gap: clamp(16px, 2vw, 28px);
@@ -88,6 +184,10 @@
     background: none;
     border: 0;
     box-shadow: none;
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .lista {
@@ -100,8 +200,49 @@
     font-size: var(--tamano-chico);
   }
 
+  /* Subrayado que se dibuja desde la izquierda y se queda en la sección actual */
+  .enlace::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 8px;
+    left: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform var(--duracion-cierre) var(--curva-salida);
+  }
+
+  .enlace[aria-current]::after {
+    transform: scaleX(1);
+  }
+
   .accion {
     width: auto;
     margin-top: 0;
+  }
+}
+
+@media (min-width: 62rem) and (hover: hover) and (pointer: fine) {
+  .enlace:hover::after {
+    transform: scaleX(1);
+    transition-duration: var(--duracion-gesto);
+  }
+}
+
+/* Con movimiento reducido el menú y sus iconos se funden sin desplazarse ni girar */
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panel[data-abierto='true'],
+  .iconoCerrar,
+  .botonMenu[aria-expanded='true'] .iconoMenu,
+  .botonMenu:active {
+    transform: none;
+  }
+
+  .enlace::after {
+    transition: none;
   }
 }
