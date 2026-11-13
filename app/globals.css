@@ -194,6 +194,37 @@ svg {
   outline-offset: 3px;
 }
 
+/*
+ * Aparición al entrar en pantalla (components/ui/RevelarAlEntrar.tsx).
+ * El HTML llega con todo visible; el script solo marca como `pendiente` lo que
+ * al cargar queda por debajo de la pantalla y lo pasa a `visible` cuando
+ * asoma. El `html` delante da prioridad sobre las transiciones propias de
+ * cada componente mientras dura la entrada.
+ */
+html [data-revelar='pendiente'] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+html [data-revelar='visible'] {
+  transition:
+    opacity var(--duracion-entrada) var(--curva-salida),
+    transform var(--duracion-entrada) var(--curva-salida);
+  transition-delay: var(--retraso-revelar, 0ms);
+}
+
+/* Con movimiento reducido el bloque se funde en su sitio, sin desplazarse ni esperar turno */
+@media (prefers-reduced-motion: reduce) {
+  html [data-revelar='pendiente'] {
+    transform: none;
+  }
+
+  html [data-revelar='visible'] {
+    transition-duration: 200ms;
+    transition-delay: 0ms;
+  }
+}
+
 /* Texto solo para lectores de pantalla */
 .solo-lectores {
   position: absolute;
