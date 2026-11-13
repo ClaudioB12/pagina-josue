@@ -50,3 +50,45 @@
 .acciones .accionContorno {
   padding-inline: 28px;
 }
+
+/*
+ * Entrada: el bloque no se mueve entero. El ∞ se traza (ver Logo.module.css)
+ * y el texto llega detrás, cuando el trazo ya está en marcha.
+ */
+.contenido[data-revelar='pendiente'] {
+  opacity: 1;
+  transform: none;
+}
+
+.contenido[data-revelar='pendiente'] > :not(.simbolo) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.contenido[data-revelar='visible'] > :not(.simbolo) {
+  transition:
+    opacity var(--duracion-entrada) var(--curva-salida),
+    transform var(--duracion-entrada) var(--curva-salida);
+  transition-delay: 280ms;
+}
+
+.contenido[data-revelar='visible'] > .texto {
+  transition-delay: calc(280ms + var(--paso-escalonado));
+}
+
+.contenido[data-revelar='visible'] > .acciones {
+  transition-delay: calc(280ms + var(--paso-escalonado) * 2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contenido[data-revelar='pendiente'] > :not(.simbolo) {
+    transform: none;
+  }
+
+  .contenido[data-revelar='visible'] > :not(.simbolo),
+  .contenido[data-revelar='visible'] > .texto,
+  .contenido[data-revelar='visible'] > .acciones {
+    transition-duration: 200ms;
+    transition-delay: 0ms;
+  }
+}

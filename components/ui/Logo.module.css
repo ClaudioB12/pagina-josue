@@ -40,6 +40,44 @@
   stroke: var(--logo-anillo-b);
 }
 
+/*
+ * Trazado: el símbolo se dibuja de un solo gesto cuando el bloque que lo
+ * contiene entra en pantalla. Primero el anillo izquierdo y, antes de que
+ * termine, el derecho.
+ *
+ * Es la única animación del sitio que no usa transform ni opacity: trazar una
+ * línea exige animar el desfase del guion. Ocurre una vez, sobre un dibujo de
+ * 84 px, y no mueve nada de la página.
+ */
+[data-revelar='pendiente'] .trazable .anilloA,
+[data-revelar='pendiente'] .trazable .anilloB {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+[data-revelar='visible'] .trazable .anilloA,
+[data-revelar='visible'] .trazable .anilloB {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 600ms var(--curva-salida);
+}
+
+[data-revelar='visible'] .trazable .anilloB {
+  transition-delay: 320ms;
+}
+
+/* Con movimiento reducido el símbolo ya está dibujado */
+@media (prefers-reduced-motion: reduce) {
+  [data-revelar='pendiente'] .trazable .anilloA,
+  [data-revelar='pendiente'] .trazable .anilloB,
+  [data-revelar='visible'] .trazable .anilloA,
+  [data-revelar='visible'] .trazable .anilloB {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}
+
 .logo {
   display: inline-flex;
   align-items: center;
