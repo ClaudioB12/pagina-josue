@@ -2,5 +2,6 @@
   width: 100%;
   max-width: var(--ancho-max);
   margin-inline: auto;
-  padding-inline: var(--margen-lateral);
+  padding-right: var(--margen-derecho);
+  padding-left: var(--margen-izquierdo);
 }

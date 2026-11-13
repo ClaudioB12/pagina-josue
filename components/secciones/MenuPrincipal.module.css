@@ -84,7 +84,7 @@
 .panel {
   display: flex;
   flex-direction: column;
-  padding: 8px var(--margen-lateral) 24px;
+  padding: 8px var(--margen-derecho) 24px var(--margen-izquierdo);
   background: var(--color-fondo);
   border-bottom: 1px solid var(--color-borde);
   box-shadow: var(--sombra-elevada);

@@ -1,0 +1,57 @@
+/*
+ * Barra inferior de contacto. Entra desde el borde de abajo y se va por donde
+ * vino: 200 ms al llegar, 150 al irse.
+ */
+.barra {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10; /* por debajo del encabezado y del velo del menú */
+  padding: 12px var(--margen-derecho) calc(12px + env(safe-area-inset-bottom, 0px)) var(--margen-izquierdo);
+  background: var(--color-fondo);
+  border-top: 1px solid var(--color-borde);
+  box-shadow: var(--sombra-barra-inferior);
+  visibility: hidden;
+  transform: translateY(100%);
+  transition:
+    transform var(--duracion-cierre) var(--curva-salida),
+    visibility 0s linear var(--duracion-cierre);
+}
+
+.barra[data-visible='true'] {
+  visibility: visible;
+  transform: none;
+  transition:
+    transform var(--duracion-gesto) var(--curva-salida),
+    visibility 0s;
+}
+
+.accion {
+  width: 100%;
+}
+
+/* A partir de este ancho el encabezado ya muestra su botón de WhatsApp */
+@media (min-width: 62rem) {
+  .barra {
+    display: none;
+  }
+}
+
+/* Con movimiento reducido la barra se funde en su sitio en lugar de subir */
+@media (prefers-reduced-motion: reduce) {
+  .barra {
+    opacity: 0;
+    transform: none;
+    transition:
+      opacity var(--duracion-cierre) ease,
+      visibility 0s linear var(--duracion-cierre);
+  }
+
+  .barra[data-visible='true'] {
+    opacity: 1;
+    transition:
+      opacity var(--duracion-gesto) ease,
+      visibility 0s;
+  }
+}

@@ -24,7 +24,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: colores.primario,
+  // El color del navegador en móvil es el del encabezado, para que no haya salto entre ambos
+  themeColor: colores.fondo,
+  // Los fondos llegan al borde en teléfonos con muesca; el contenido se aparta con env(safe-area-inset-*)
+  viewportFit: 'cover',
 };
 
 export default function LayoutRaiz({ children }: { children: ReactNode }) {
