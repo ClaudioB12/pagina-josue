@@ -6,7 +6,7 @@
 :root {
   /* Marca */
   --color-primario: #1E3A8A; /* azul profundo: logo, títulos, botón principal */
-  --color-primario-fuerte: #1A3175; /* botón principal al pasar el cursor */
+  --color-primario-fuerte: #152862; /* botón principal al pasar el cursor: un paso claro, no un matiz */
   --color-secundario: #3B82F6; /* azul cielo: detalles */
   --color-secundario-texto: #1D4ED8; /* azul para texto pequeño (contraste 4.5:1) */
   --color-texto: #1F2937;

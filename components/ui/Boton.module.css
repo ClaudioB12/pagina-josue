@@ -13,9 +13,10 @@
   text-align: center;
   text-decoration: none;
   transition:
-    background-color 150ms ease,
-    border-color 150ms ease,
-    color 150ms ease;
+    background-color var(--duracion-color) ease,
+    border-color var(--duracion-color) ease,
+    color var(--duracion-color) ease,
+    transform var(--duracion-pulsacion) var(--curva-salida);
 }
 
 .chico {
@@ -30,10 +31,6 @@
   color: #FFFFFF;
 }
 
-.primario:hover {
-  background: var(--color-primario-fuerte);
-}
-
 /* En el diseño, los botones de contorno suman su borde al relleno */
 .contorno,
 .contornoClaro {
@@ -46,26 +43,14 @@
   color: var(--color-primario);
 }
 
-.contorno:hover {
-  background: var(--color-azul-tenue);
-}
-
 .qhatu {
   background: var(--color-qhatu);
   color: #FFFFFF;
 }
 
-.qhatu:hover {
-  background: var(--color-qhatu-fuerte);
-}
-
 .claro {
   background: #FFFFFF;
   color: var(--color-primario);
-}
-
-.claro:hover {
-  background: var(--color-azul-palido);
 }
 
 .contornoClaro {
@@ -74,8 +59,40 @@
   color: #FFFFFF;
 }
 
-.contornoClaro:hover {
-  background: rgba(255, 255, 255, 0.1);
+/*
+ * El cursor solo resalta donde existe: en una pantalla táctil el hover se
+ * queda pegado después de tocar. Además del color, el botón sube 1 px, para
+ * que el cambio se note también en pantallas de poco contraste.
+ */
+@media (hover: hover) and (pointer: fine) {
+  .boton:hover {
+    transform: translateY(-1px);
+  }
+
+  .primario:hover {
+    background: var(--color-primario-fuerte);
+  }
+
+  .contorno:hover {
+    background: var(--color-azul-palido);
+  }
+
+  .qhatu:hover {
+    background: var(--color-qhatu-fuerte);
+  }
+
+  .claro:hover {
+    background: var(--color-azul-palido);
+  }
+
+  .contornoClaro:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+/* Al pulsar, el botón cede: confirma que la página ha recibido el gesto */
+.boton:active {
+  transform: scale(0.97);
 }
 
 @media (max-width: 30rem) {
@@ -84,8 +101,14 @@
   }
 }
 
+/* Con movimiento reducido el botón sigue respondiendo con el color, sin desplazarse */
 @media (prefers-reduced-motion: reduce) {
   .boton {
-    transition: none;
+    transition-property: background-color, border-color, color;
+  }
+
+  .boton:hover,
+  .boton:active {
+    transform: none;
   }
 }

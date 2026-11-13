@@ -202,6 +202,16 @@
     border-radius: var(--radio-grande);
   }
 
+  /*
+   * Aquí el botón no se mueve: una transformación lo convertiría en la
+   * referencia de su zona de clic, que dejaría de abarcar la tarjeta. El
+   * gesto lo hace la tarjeta entera.
+   */
+  .cuerpo .accion:hover,
+  .cuerpo .accion:active {
+    transform: none;
+  }
+
   .producto:hover {
     transform: translateY(-2px);
     transition-duration: var(--duracion-gesto);
@@ -211,10 +221,16 @@
     opacity: 1;
     transition-duration: var(--duracion-gesto);
   }
+
+  .producto:active {
+    transform: translateY(-1px) scale(0.99);
+    transition-duration: var(--duracion-pulsacion);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .producto:hover {
+  .producto:hover,
+  .producto:active {
     transform: none;
   }
 }
