@@ -1,0 +1,50 @@
+.llamado {
+  --color-foco: #FFFFFF;
+
+  padding-block: clamp(4rem, 3.357rem + 2.857vw, 5.5rem); /* 64 → 88 px */
+  background: var(--color-primario);
+  color: #FFFFFF;
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+.simbolo {
+  width: 84px;
+  height: 54px;
+}
+
+.titulo {
+  font-size: var(--tamano-h2-llamado);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.texto {
+  max-width: 560px;
+  font-size: 1.125rem;
+  color: var(--color-azul-palido);
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  padding-top: 6px;
+}
+
+/* 28 px a los lados contando el borde, como en el diseño */
+.acciones .accion {
+  padding-inline: 27px;
+}
+
+.acciones .accionContorno {
+  padding-inline: 28px;
+}

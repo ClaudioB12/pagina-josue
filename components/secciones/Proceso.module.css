@@ -1,0 +1,77 @@
+.seccion {
+  padding-block: var(--espacio-seccion);
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 48px);
+}
+
+.pasos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.paso {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 3px solid var(--color-primario);
+}
+
+.pasoSecundario {
+  border-top-color: var(--color-secundario);
+}
+
+.numero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radio-pastilla);
+  background: var(--color-primario);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.numeroTercero {
+  background: var(--color-secundario-texto);
+}
+
+.numeroInfinito {
+  background: var(--color-azul-palido);
+}
+
+.simbolo {
+  width: 26px;
+  height: 17px;
+}
+
+.titulo {
+  font-size: 1.1875rem; /* 19 px */
+  font-weight: 600;
+}
+
+.texto {
+  font-size: var(--tamano-chico);
+  color: var(--color-texto-suave);
+}
+
+@media (min-width: 35rem) {
+  .pasos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 62.5rem) {
+  .pasos {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

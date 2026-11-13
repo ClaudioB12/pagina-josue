@@ -1,0 +1,68 @@
+.seccion {
+  padding-block: var(--espacio-seccion);
+  background: var(--color-fondo-alterno);
+}
+
+.contenido {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(32px, 5vw, 48px);
+}
+
+.intro {
+  flex: 1 1 340px;
+  min-width: 0;
+}
+
+.razones {
+  display: grid;
+  flex: 2 1 520px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.razon {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tituloRazon {
+  font-size: 1.125rem; /* 18 px */
+  font-weight: 600;
+}
+
+.textoRazon {
+  font-size: var(--tamano-chico);
+  color: var(--color-texto-suave);
+}
+
+.testimonio {
+  flex: 1 1 100%;
+  margin: 0;
+  padding: 28px 32px;
+  font-size: 1.125rem;
+  color: var(--color-texto-medio);
+}
+
+.autor {
+  margin-top: 10px;
+  font-size: 0.875rem;
+  color: var(--color-texto-suave);
+}
+
+@media (min-width: 35rem) {
+  .razones {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 30rem) {
+  .testimonio {
+    padding: 24px;
+  }
+}

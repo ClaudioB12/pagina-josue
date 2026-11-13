@@ -1,0 +1,145 @@
+.seccion {
+  padding-block: var(--espacio-seccion);
+}
+
+.contenido {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(32px, 5vw, 48px);
+}
+
+.tarjetas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.producto {
+  display: flex;
+  flex: 1 1 420px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 20px;
+  padding: 28px 32px;
+}
+
+.cabeceraQhatu {
+  background: var(--color-qhatu-fondo);
+}
+
+.cabeceraQhatu .separador {
+  background: var(--color-qhatu-linea);
+}
+
+.cabeceraClinica {
+  background: var(--color-clinica-fondo);
+}
+
+.cabeceraClinica .separador {
+  background: var(--color-clinica-linea);
+}
+
+.separador {
+  width: 1px;
+  height: 36px;
+}
+
+.nombreQhatu {
+  font-size: 2.125rem; /* 34 px */
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.5px;
+  color: var(--color-qhatu);
+}
+
+.nombreQhatu strong {
+  font-weight: 700;
+}
+
+.nombreClinica {
+  display: flex;
+  flex-direction: column;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1.1;
+}
+
+.sobrenombre {
+  font-size: 0.6875rem; /* 11 px */
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+.apellido {
+  font-size: 1.875rem; /* 30 px */
+  font-weight: 600;
+  color: var(--color-clinica);
+}
+
+/* Etiqueta punteada: recuerda que los colores de la clínica están pendientes */
+.pendiente {
+  padding: 2px 10px;
+  border: 1px dashed var(--color-gris-400);
+  border-radius: var(--radio-pastilla);
+  font-size: 0.6875rem;
+  color: var(--color-texto-suave);
+}
+
+.cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 18px;
+  padding: 28px 32px 32px;
+  color: var(--color-texto-medio);
+}
+
+.funciones {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.dato {
+  font-size: var(--tamano-chico);
+  color: var(--color-texto-suave);
+}
+
+.dato strong {
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.accion {
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+/* En el diseño estos botones son algo más compactos: 13 × 24 px contando el borde */
+.cuerpo .accion {
+  padding: 12px 23px;
+}
+
+@media (max-width: 30rem) {
+  .cabecera {
+    padding: 24px;
+  }
+
+  .cuerpo {
+    padding: 24px;
+  }
+
+  .separador {
+    display: none;
+  }
+}
