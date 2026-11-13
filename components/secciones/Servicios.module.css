@@ -11,27 +11,18 @@
 
 .lista {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Móvil: icono, título y texto apilados */
 .servicio {
   display: flex;
   flex-direction: column;
   gap: 14px;
-}
-
-/* Las tarjetas de una fila comparten filas: icono, título y texto empiezan a la misma altura */
-@supports (grid-template-rows: subgrid) {
-  .servicio {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 3;
-    row-gap: 14px;
-  }
 }
 
 .icono {
@@ -56,14 +47,25 @@
   color: var(--color-texto-suave);
 }
 
-/* Dos columnas: la tercera tarjeta ocupa la fila completa */
-@media (min-width: 40rem) {
-  .lista {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/*
+ * Ancho medio: una tarjeta por fila, con el icono a la izquierda. En dos
+ * columnas la tercera tarjeta quedaba sola y estirada a todo el ancho.
+ */
+@media (min-width: 40rem) and (max-width: 55.99rem) {
+  .servicio {
+    display: grid;
+    grid-template-columns: 52px minmax(0, 1fr);
+    gap: 6px 20px;
+    align-items: start;
   }
 
-  .servicio:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
+  .icono {
+    grid-row: 1 / span 2;
+  }
+
+  .titulo,
+  .texto {
+    grid-column: 2;
   }
 }
 
@@ -71,8 +73,16 @@
   .lista {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
 
-  .servicio:last-child:nth-child(odd) {
-    grid-column: auto;
+/* En tres columnas, icono, título y texto de las tres tarjetas empiezan a la misma altura */
+@supports (grid-template-rows: subgrid) {
+  @media (min-width: 56rem) {
+    .servicio {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 3;
+      row-gap: 14px;
+    }
   }
 }

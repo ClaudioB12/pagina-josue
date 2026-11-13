@@ -18,11 +18,11 @@ export function LlamadoFinal() {
           </h2>
           <p className={estilos.texto}>{llamadoFinal.texto}</p>
           <div className={estilos.acciones}>
-            <Boton className={estilos.accion} href={enlaceWhatsApp()} variante="claro" externo>
+            <Boton href={enlaceWhatsApp()} variante="claro" externo>
               <Icono nombre="whatsapp" tamano={20} />
               {llamadoFinal.etiquetaWhatsApp} {contacto.whatsapp}
             </Boton>
-            <Boton className={estilos.accionContorno} href={enlaceCorreo()} variante="contornoClaro">
+            <Boton href={enlaceCorreo()} variante="contornoClaro">
               <Icono nombre="correo" tamano={20} />
               {contacto.correo}
             </Boton>

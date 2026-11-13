@@ -18,6 +18,7 @@
 
   /* Azules de apoyo */
   --color-azul-palido: #DBEAFE;
+  --color-azul-claro: #BFDBFE; /* botón claro al pasar el cursor */
   --color-azul-tenue: #EFF6FF;
   --color-azul-suave: #93C5FD;
   --color-azul-medio: #60A5FA;

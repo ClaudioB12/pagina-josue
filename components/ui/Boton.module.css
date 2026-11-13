@@ -4,7 +4,7 @@
   justify-content: center;
   gap: 10px;
   min-height: 48px;
-  padding: 14px 25px; /* más el borde: 26 px a los lados, como en el diseño */
+  padding: 14px 25px;
   border: 1.5px solid transparent;
   border-radius: var(--radio-boton);
   font-size: 1rem;
@@ -12,6 +12,7 @@
   line-height: 1.6;
   text-align: center;
   text-decoration: none;
+  overflow-wrap: anywhere; /* un correo largo se parte antes que desbordar el botón */
   transition:
     background-color var(--duracion-color) ease,
     border-color var(--duracion-color) ease,
@@ -21,7 +22,7 @@
 
 .chico {
   min-height: 44px;
-  padding: 10px 19px; /* más el borde: 11 × 20 px, como en el diseño */
+  padding: 10px 19px;
   border-radius: 10px;
   font-size: var(--tamano-chico);
 }
@@ -29,12 +30,6 @@
 .primario {
   background: var(--color-primario);
   color: #FFFFFF;
-}
-
-/* En el diseño, los botones de contorno suman su borde al relleno */
-.contorno,
-.contornoClaro {
-  padding-inline: 26px;
 }
 
 .contorno {
@@ -82,11 +77,12 @@
   }
 
   .claro:hover {
-    background: var(--color-azul-palido);
+    background: var(--color-azul-claro);
   }
 
   .contornoClaro:hover {
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #FFFFFF;
   }
 }
 

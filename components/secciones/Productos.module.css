@@ -82,6 +82,7 @@
   line-height: 1;
   letter-spacing: -0.5px;
   color: var(--color-qhatu);
+  white-space: nowrap; /* el nombre del producto no se parte en dos líneas */
 }
 
 .nombreQhatu strong {
@@ -157,11 +158,6 @@
 .accion {
   align-self: flex-start;
   margin-top: auto;
-}
-
-/* En el diseño estos botones son algo más compactos: 13 × 24 px contando el borde */
-.cuerpo .accion {
-  padding: 12px 23px;
 }
 
 /*

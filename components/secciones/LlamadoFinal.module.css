@@ -42,15 +42,6 @@
   padding-top: 6px;
 }
 
-/* 28 px a los lados contando el borde, como en el diseño */
-.acciones .accion {
-  padding-inline: 27px;
-}
-
-.acciones .accionContorno {
-  padding-inline: 28px;
-}
-
 /*
  * Entrada: el bloque no se mueve entero. El ∞ se traza (ver Logo.module.css)
  * y el texto llega detrás, cuando el trazo ya está en marcha.

@@ -1,4 +1,7 @@
 .seccion {
+  /* Aquí el texto corrido va directo sobre el gris: con el gris medio lee a 9,4:1 en lugar de 6,9:1 */
+  --color-texto-suave: var(--color-texto-medio);
+
   padding-block: var(--espacio-seccion);
   background: var(--color-fondo-alterno);
 }
