@@ -9,11 +9,6 @@
   box-shadow: var(--sombra-suave);
 }
 
-.relleno-md {
-  padding: 24px;
-  border-radius: var(--radio-medio);
-}
-
 .relleno-lg {
   padding: 32px;
 }

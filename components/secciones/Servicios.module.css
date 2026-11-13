@@ -31,7 +31,7 @@
   justify-content: center;
   width: 52px;
   height: 52px;
-  border-radius: 12px;
+  border-radius: var(--radio-boton);
   background: var(--color-azul-palido);
   color: var(--color-primario);
 }

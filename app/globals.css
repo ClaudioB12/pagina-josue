@@ -19,7 +19,6 @@
   /* Azules de apoyo */
   --color-azul-palido: #DBEAFE;
   --color-azul-claro: #BFDBFE; /* botón claro al pasar el cursor */
-  --color-azul-tenue: #EFF6FF;
   --color-azul-suave: #93C5FD;
   --color-azul-medio: #60A5FA;
 
@@ -71,11 +70,10 @@
   --espaciado-h1: -0.02em;
   --espaciado-h2: -0.015em;
 
-  /* Forma */
-  --radio-chico: 8px;
-  --radio-boton: 12px;
-  --radio-medio: 14px;
-  --radio-grande: 16px;
+  /* Forma: una sola escala de radios */
+  --radio-chico: 8px; /* enlaces y su anillo de foco */
+  --radio-boton: 12px; /* botones y recuadros de icono */
+  --radio-grande: 16px; /* tarjetas */
   --radio-pastilla: 999px;
 
   /*
@@ -91,11 +89,10 @@
   --sombra-mockup-fuerte: 0 20px 40px rgba(30, 58, 138, 0.22);
 
   /*
-   * Movimiento. Las curvas son las de animations.dev: las de CSS por defecto
-   * arrancan demasiado despacio para una interfaz.
+   * Movimiento. La curva es la de salida fuerte de animations.dev: las de CSS
+   * por defecto arrancan demasiado despacio para una interfaz.
    */
   --curva-salida: cubic-bezier(0.23, 1, 0.32, 1); /* lo que entra, sale o responde a un gesto */
-  --curva-vaiven: cubic-bezier(0.77, 0, 0.175, 1); /* lo que se desplaza dentro de la pantalla */
   --duracion-pulsacion: 160ms; /* respuesta al pulsar */
   --duracion-color: 150ms; /* cambios de color al pasar el cursor */
   --duracion-gesto: 200ms; /* subrayados, elevaciones, apertura del menú */

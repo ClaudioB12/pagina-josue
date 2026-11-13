@@ -9,7 +9,7 @@ interface PropsTarjeta {
   /** `plana` va sobre fondos grises; `elevada` lleva borde y sombra suave. */
   variante?: 'plana' | 'elevada';
   /** Espacio interior. `ninguno` cuando el contenido trae sus propias franjas. */
-  relleno?: 'ninguno' | 'md' | 'lg';
+  relleno?: 'ninguno' | 'lg';
   /** Aparece al entrar en pantalla (ver `RevelarAlEntrar`). */
   revelar?: boolean;
   className?: string;

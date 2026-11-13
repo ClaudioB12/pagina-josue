@@ -23,7 +23,6 @@
 .chico {
   min-height: 44px;
   padding: 10px 19px;
-  border-radius: 10px;
   font-size: var(--tamano-chico);
 }
 
