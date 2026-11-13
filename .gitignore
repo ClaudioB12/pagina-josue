@@ -1,3 +1,24 @@
+# Dependencias
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Vercel
+.vercel
+
+# Variables de entorno: nunca se suben. Solo se versiona el ejemplo.
+.env
+.env.*
+!.env.example
+
+# Sistema y registros
+.DS_Store
+npm-debug.log*
+
 # Estado local de la skill design-taste-frontend (marcadores de su verificador,
 # capturas y perfiles temporales de Chrome). Si se sube al repo, el verificador
 # queda "armado" en cada checkout. Su propio repo de origen también lo ignora.
