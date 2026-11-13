@@ -14,11 +14,16 @@
   min-width: 0;
 }
 
+/*
+ * Las razones son una lista, no más tarjetas: un filete arriba y el texto
+ * debajo. La página ya usa tarjetas para productos y servicios; aquí respira.
+ */
 .razones {
   display: grid;
   flex: 2 1 520px;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px 40px;
+  align-content: start;
   min-width: 0;
   margin: 0;
   padding: 0;
@@ -29,6 +34,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-gris-300);
 }
 
 .tituloRazon {
@@ -42,17 +49,30 @@
   color: var(--color-texto-suave);
 }
 
+/*
+ * El testimonio es la única tarjeta de la sección: es la voz de un cliente
+ * justo antes de pedir el contacto, y tiene que pesar.
+ */
 .testimonio {
   flex: 1 1 100%;
   margin: 0;
-  padding: 28px 32px;
-  font-size: 1.125rem;
-  color: var(--color-texto-medio);
+  padding: clamp(28px, 4vw, 44px) clamp(24px, 4vw, 48px);
+}
+
+.cita {
+  max-width: 62ch;
+  font-size: var(--tamano-cita);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-primario);
+  text-wrap: balance;
+  /* La comilla de apertura cuelga fuera del margen: el texto queda alineado por la primera letra */
+  text-indent: -0.42em;
 }
 
 .autor {
-  margin-top: 10px;
-  font-size: 0.875rem;
+  margin-top: 16px;
+  font-size: var(--tamano-chico);
   color: var(--color-texto-suave);
 }
 
@@ -62,8 +82,12 @@
   }
 }
 
-@media (max-width: 30rem) {
-  .testimonio {
-    padding: 24px;
+/* En dos columnas, título y texto de las razones vecinas empiezan a la misma altura */
+@supports (grid-template-rows: subgrid) {
+  .razon {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    row-gap: 6px;
   }
 }

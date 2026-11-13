@@ -4,7 +4,7 @@ import { Tarjeta } from '@/components/ui/Tarjeta';
 import { porQue } from '@/lib/contenido';
 import estilos from './PorQue.module.css';
 
-/** Razones para elegir OchoaSoft y testimonio de un cliente. */
+/** Razones para elegir OchoaSoft, como lista, y el testimonio de un cliente como cita destacada. */
 export function PorQue() {
   return (
     <section id="por-que" className={estilos.seccion} aria-labelledby="titulo-por-que">
@@ -20,15 +20,15 @@ export function PorQue() {
 
         <ul className={estilos.razones} role="list">
           {porQue.razones.map((razon) => (
-            <Tarjeta key={razon.titulo} como="li" relleno="md" className={estilos.razon}>
+            <li key={razon.titulo} className={estilos.razon} data-revelar="">
               <h3 className={estilos.tituloRazon}>{razon.titulo}</h3>
               <p className={estilos.textoRazon}>{razon.texto}</p>
-            </Tarjeta>
+            </li>
           ))}
         </ul>
 
-        <Tarjeta como="figure" relleno="ninguno" className={estilos.testimonio}>
-          <blockquote>“{porQue.testimonio.cita}”</blockquote>
+        <Tarjeta como="figure" relleno="ninguno" revelar className={estilos.testimonio}>
+          <blockquote className={estilos.cita}>“{porQue.testimonio.cita}”</blockquote>
           <figcaption className={estilos.autor}>— {porQue.testimonio.autor}</figcaption>
         </Tarjeta>
       </Contenedor>
