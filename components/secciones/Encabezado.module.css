@@ -22,3 +22,10 @@
   border-radius: var(--radio-chico);
   text-decoration: none;
 }
+
+/* Con el menú en fila, el logo y los enlaces nunca se reparten en dos líneas */
+@media (min-width: 62rem) {
+  .barra {
+    flex-wrap: nowrap;
+  }
+}

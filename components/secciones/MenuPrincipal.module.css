@@ -66,8 +66,13 @@
   margin-top: 12px;
 }
 
-/* Escritorio: fila de enlaces siempre visible */
-@media (min-width: 56.25rem) {
+/*
+ * Escritorio: fila de enlaces siempre visible.
+ * La fila completa (logo + enlaces + botón) necesita 959 px; el corte deja
+ * margen para la barra de desplazamiento. Debe coincidir con
+ * CONSULTA_ESCRITORIO en MenuPrincipal.tsx y con Encabezado.module.css.
+ */
+@media (min-width: 62rem) {
   .botonMenu {
     display: none;
   }
@@ -78,7 +83,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 28px;
+    gap: clamp(16px, 2vw, 28px);
     padding: 0;
     background: none;
     border: 0;
@@ -87,7 +92,7 @@
 
   .lista {
     flex-direction: row;
-    gap: 28px;
+    gap: clamp(16px, 2vw, 28px);
   }
 
   .enlace {

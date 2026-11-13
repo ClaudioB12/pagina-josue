@@ -17,7 +17,7 @@ interface PropsMenuPrincipal {
 }
 
 /** Debe coincidir con el punto de quiebre de `MenuPrincipal.module.css`. */
-const CONSULTA_ESCRITORIO = '(min-width: 56.25rem)';
+const CONSULTA_ESCRITORIO = '(min-width: 62rem)';
 
 /**
  * Menú principal.
