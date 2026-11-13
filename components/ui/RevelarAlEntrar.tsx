@@ -6,8 +6,12 @@ import { useEffect } from 'react';
 const PASO_MS = 60;
 /** A partir del quinto bloque de una tanda ya no se añade más espera. */
 const MAXIMO_DE_PASOS = 4;
-/** Entrada (500 ms) + desfase máximo (240 ms) + holgura: después el bloque vuelve a sus propios estilos. */
-const LIMPIEZA_MS = 1200;
+/**
+ * Tiempo tras el cual el bloque vuelve a sus propios estilos. Cubre la entrada
+ * más larga del sitio: la secuencia de «Cómo trabajamos» (660 ms de espera del
+ * último paso + 500 ms de entrada).
+ */
+const LIMPIEZA_MS = 1600;
 
 /**
  * Hace aparecer, una sola vez, los bloques marcados con `data-revelar` cuando

@@ -5,7 +5,10 @@ import { unirClases } from '@/lib/clases';
 import { proceso } from '@/lib/contenido';
 import estilos from './Proceso.module.css';
 
-/** Los pasos del trabajo. El último no lleva número sino el ∞: el acompañamiento no termina. */
+/**
+ * Los pasos del trabajo, unidos por una línea. El último no lleva número sino
+ * el ∞, donde la línea termina: el acompañamiento no acaba.
+ */
 export function Proceso() {
   const ultimo = proceso.pasos.length - 1;
 
@@ -16,7 +19,7 @@ export function Proceso() {
 
         <ol className={estilos.pasos} role="list">
           {proceso.pasos.map((paso, indice) => (
-            <li key={paso.titulo} className={unirClases(estilos.paso, indice >= 2 && estilos.pasoSecundario)}>
+            <li key={paso.titulo} className={estilos.paso} data-revelar="">
               <span
                 className={unirClases(
                   estilos.numero,
