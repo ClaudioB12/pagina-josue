@@ -185,6 +185,61 @@
   background: var(--color-azul-palido);
 }
 
+/*
+ * Entrada, una sola vez al cargar: el texto llega primero, de arriba abajo, y
+ * las pantallas detrás. Es una animación CSS y no depende de JavaScript.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  .insignia,
+  .titulo,
+  .bajada,
+  .acciones,
+  .visual {
+    animation: entrar var(--duracion-entrada) var(--curva-salida) both;
+  }
+
+  .titulo {
+    animation-delay: var(--paso-escalonado);
+  }
+
+  .bajada {
+    animation-delay: calc(var(--paso-escalonado) * 2);
+  }
+
+  .acciones {
+    animation-delay: calc(var(--paso-escalonado) * 3);
+  }
+
+  .visual {
+    animation-duration: 700ms;
+    animation-delay: calc(var(--paso-escalonado) * 4);
+  }
+}
+
+/* Con movimiento reducido todo aparece en su sitio, con un fundido breve */
+@media (prefers-reduced-motion: reduce) {
+  .insignia,
+  .titulo,
+  .bajada,
+  .acciones,
+  .visual {
+    animation: aparecer 200ms ease both;
+  }
+}
+
+@keyframes entrar {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 48rem) {
   .marcaDeAgua {
     top: -24px;
