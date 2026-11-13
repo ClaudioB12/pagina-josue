@@ -65,6 +65,8 @@ docs/diseno/            diseño aprobado (fuente de verdad)
 
 Cada componente tiene su archivo `.module.css` al lado.
 
+`AGENTS.md` lo escribe y mantiene `next dev` cuando lo lanza un asistente de IA: le indica que lea la documentación incluida en `node_modules/next/dist/docs/` antes de tocar el código. Está versionado para que el árbol de trabajo no cambie al arrancar el servidor.
+
 ## Marcadores pendientes
 
 Los textos entre `[CORCHETES]` son datos que faltan. Se muestran tal cual hasta reemplazarlos.
