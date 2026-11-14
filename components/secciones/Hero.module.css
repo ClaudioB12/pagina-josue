@@ -190,6 +190,11 @@
 /*
  * Entrada, una sola vez al cargar: el texto llega primero, de arriba abajo, y
  * las pantallas detrás. Es una animación CSS y no depende de JavaScript.
+ *
+ * El relleno es `both` a propósito. Con `backwards` la animación se suelta al
+ * terminar, el navegador repinta el texto y Chrome lo cuenta entonces como la
+ * pintura principal de la página: el LCP medido pasa de 0,9 a 2,5 s en móvil
+ * (Lighthouse, noviembre de 2026) aunque en pantalla se ve exactamente igual.
  */
 @media (prefers-reduced-motion: no-preference) {
   .insignia,
@@ -213,7 +218,6 @@
   }
 
   .visual {
-    animation-duration: 700ms;
     animation-delay: calc(var(--paso-escalonado) * 4);
   }
 }
