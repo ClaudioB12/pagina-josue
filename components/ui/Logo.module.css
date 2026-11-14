@@ -42,28 +42,47 @@
 
 /*
  * Trazado: el símbolo se dibuja de un solo gesto cuando el bloque que lo
- * contiene entra en pantalla. Primero el anillo izquierdo y, antes de que
- * termine, el derecho.
+ * contiene entra en pantalla, como al escribir un ∞ a mano: el trazo arranca
+ * despacio, recorre el anillo izquierdo acelerando, pasa por el cruce a su
+ * mayor velocidad y frena a lo largo del derecho.
+ *
+ * Las dos curvas son las dos mitades de una sola (easeInOutQuad,
+ * cubic-bezier(0.45, 0, 0.55, 1), partida por su punto medio), así que la
+ * velocidad no salta al pasar de un anillo al otro. Lo que se desplaza por la
+ * pantalla acelera y frena; la curva de salida del resto del sitio dibujaba
+ * medio anillo en 80 ms y dejaba el resto arrastrándose.
  *
  * Es la única animación del sitio que no usa transform ni opacity: trazar una
  * línea exige animar el desfase del guion. Ocurre una vez, sobre un dibujo de
  * 84 px, y no mueve nada de la página.
  */
+.trazable {
+  --medio-trazo: 400ms; /* lo que tarda cada anillo */
+}
+
+/*
+ * El guion mide un poco más que el recorrido (1.01 de 1) y parte de un poco
+ * más atrás (1.02): si midiera justo lo mismo, en pantallas de alta densidad
+ * asomaría una rendija de un píxel donde el anillo se cierra sobre sí mismo.
+ */
 [data-revelar='pendiente'] .trazable .anilloA,
 [data-revelar='pendiente'] .trazable .anilloB {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dasharray: 1.01 2;
+  stroke-dashoffset: 1.02;
 }
 
 [data-revelar='visible'] .trazable .anilloA,
 [data-revelar='visible'] .trazable .anilloB {
-  stroke-dasharray: 1;
+  stroke-dasharray: 1.01 2;
   stroke-dashoffset: 0;
-  transition: stroke-dashoffset 600ms var(--curva-salida);
+}
+
+[data-revelar='visible'] .trazable .anilloA {
+  transition: stroke-dashoffset var(--medio-trazo) cubic-bezier(0.45, 0, 0.725, 0.5);
 }
 
 [data-revelar='visible'] .trazable .anilloB {
-  transition-delay: 320ms;
+  transition: stroke-dashoffset var(--medio-trazo) cubic-bezier(0.275, 0.5, 0.55, 1) var(--medio-trazo);
 }
 
 /* Con movimiento reducido el símbolo ya está dibujado */
