@@ -7,7 +7,7 @@ Sitio web de OchoaSoft, empresa de software de Juliaca (Puno, Perú). Hoy es una
 | Fase | Contenido | Estado |
 |---|---|---|
 | 1 | Landing estática fiel al diseño | Hecha |
-| 2 | Mejora visual y animaciones | Hecha; falta el pase de `/review-animations` |
+| 2 | Mejora visual y animaciones | Hecha |
 | 3 | Solicitudes de demo, panel `/admin` y blog | Pendiente |
 | 4 | Área de clientes y pagos | Pendiente |
 
@@ -120,23 +120,26 @@ Todo el movimiento sale de las variables `--curva-salida`, `--duracion-*` y `--p
 |---|---|
 | Botones | Ceden al pulsar (160 ms). El hover solo existe con ratón |
 | Tarjetas de producto | Con ratón, la tarjeta entera lleva a su acción y se eleva 2 px |
-| Menú | Subrayado que se dibuja, sección actual marcada y panel móvil con transición y velo |
+| Menú | Subrayado que se dibuja, sección actual marcada y panel móvil con transición y velo. Con el teclado abre y cierra al instante |
 | Encabezado | Sombra que aparece al bajar los primeros 48 px |
 | Hero | Entrada escalonada, una vez, al cargar |
 | Secciones | Aparecen una vez al entrar en pantalla |
-| Cómo trabajamos | La línea se dibuja de paso a paso hasta el ∞ |
-| Cierre | El ∞ se traza una vez |
+| Cómo trabajamos | La línea se dibuja de paso a paso hasta el ∞; los pasos se suceden con el desfase común de 60 ms |
+| Cierre | El ∞ se traza una vez, de un solo gesto, mientras entran el texto y los botones |
 | Barra de WhatsApp | En pantallas estrechas, entra y sale por el borde inferior |
 
 Para que un bloque aparezca al entrar en pantalla basta con marcarlo con `data-revelar=""` (o la prop `revelar` de `Tarjeta`) en una página que incluya `<RevelarAlEntrar />`.
 
 Reglas que cumple todo lo anterior:
 
-- Las interacciones duran menos de 300 ms; las entradas, hasta 600 ms y una sola vez.
+- Las interacciones duran 200 ms o menos. Las entradas duran 500 ms, con hasta 240 ms de desfase entre los bloques que llegan juntos, y ocurren una sola vez. La más larga es el trazado del ∞ del cierre: 800 ms.
+- Lo que entra, sale o responde a un gesto usa una sola curva de salida. El trazado del ∞ es lo único que se desplaza por la pantalla, y por eso acelera y frena: los dos anillos se reparten una misma curva.
 - Solo se animan `transform` y `opacity`. Hay dos excepciones deliberadas: los cambios de color del hover y el trazado del ∞ del cierre.
+- Lo que se pide con el teclado no se anima: el menú abre y cierra al instante y, al tabular, el desplazamiento es inmediato. El foco nunca cae sobre algo oculto.
 - Con `prefers-reduced-motion` no hay desplazamientos ni apariciones: los botones responden con el color, el menú se funde y todo lo demás está en su sitio desde el principio.
 - Sin JavaScript no se pierde contenido: el HTML llega con todo visible y el script solo oculta lo que al cargar queda por debajo de la pantalla.
-- El foco del teclado nunca cae sobre algo oculto y, al tabular, el desplazamiento es inmediato.
+- Al imprimir sale todo el contenido, también lo que aún no había aparecido en pantalla.
+- La entrada del hero usa `animation-fill-mode: both` a propósito; el motivo está anotado en `Hero.module.css` y afecta a cómo mide Chrome el LCP.
 
 ## Variables de entorno
 
@@ -159,14 +162,16 @@ Están documentadas en `.env.example`. En la fase 1 solo se usa `NEXT_PUBLIC_SIT
 - Respeta `prefers-reduced-motion` (ver Movimiento)
 - En teléfonos con muesca los fondos llegan al borde y el contenido se aparta (`viewport-fit=cover` y `env(safe-area-inset-*)`)
 
-Lighthouse 13.6, medido el 13 de noviembre de 2026 sobre `npm run start` en local, tras la fase 2:
+Lighthouse 13.6, medido el 14 de noviembre de 2026 sobre `npm run start` en local, al cerrar la fase 2:
 
 | | Performance | Accessibility | Best Practices | SEO |
 |---|---|---|---|---|
-| Móvil | 98–99 | 100 | 100 | 100 |
+| Móvil | 99 | 100 | 100 | 100 |
 | Escritorio | 100 | 100 | 100 | 100 |
 
-Son medidas locales, hechas en Chromium; en Vercel y en otros navegadores pueden variar. El dato de móvil se movió entre 98 y 99 en dos mediciones.
+Son medidas locales, hechas en Chromium; en Vercel y en otros navegadores pueden variar. El dato de móvil dio 99 en dos mediciones seguidas; el día anterior se había movido entre 98 y 99.
+
+El LCP de esas medidas (0,9 s en móvil) no cuenta el texto del hero: como entra con un fundido, Chrome toma como referencia el nombre del logo. El titular queda completo unos 0,6 s después del primer pintado.
 
 ### Revisiones de la fase 2
 
@@ -176,7 +181,7 @@ Son medidas locales, hechas en Chromium; en Vercel y en otros navegadores pueden
 | Detector de `impeccable` | De 16 hallazgos a 8: las etiquetas en mayúsculas sobre los títulos y los recuadros de icono de Servicios, que vienen del diseño aprobado |
 | `design-taste-frontend` (solo como revisor) | Corregidos foco, contraste, movimiento reducido, márgenes y botones. No se aplica lo que exige su propio kit ni lo que contradice el diseño aprobado |
 | `web-design-guidelines` | Corregido; quedan las dos excepciones de movimiento descritas arriba |
-| `review-animations` | Pendiente: solo puede lanzarla el usuario |
+| `review-animations` | Primer pase: bloqueo, porque el menú se animaba al manejarlo con el teclado, y ocho hallazgos más. Los nueve están corregidos y comprobados de nuevo en el navegador |
 
 ## Despliegue en Vercel
 
