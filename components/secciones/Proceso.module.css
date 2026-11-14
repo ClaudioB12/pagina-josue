@@ -104,7 +104,8 @@
 
 /*
  * Entrada. El paso no se mueve entero: su contenido aparece y su tramo de
- * línea se dibuja hacia el paso siguiente.
+ * línea se dibuja hacia el paso siguiente. Los pasos que entran juntos se
+ * suceden con el mismo desfase que el resto de la página (--retraso-revelar).
  */
 .paso[data-revelar='pendiente'] {
   opacity: 1;
@@ -140,27 +141,9 @@
     max-width: none;
   }
 
-  /*
-   * En fila los cuatro pasos entran a la vez, así que el orden lo marca la
-   * línea: cada paso aparece cuando el trazo llega a su insignia.
-   */
   .paso {
-    --retraso: calc(var(--orden, 0) * 220ms);
-
     grid-template-columns: minmax(0, 1fr);
     gap: 12px;
-  }
-
-  .paso:nth-child(2) {
-    --orden: 1;
-  }
-
-  .paso:nth-child(3) {
-    --orden: 2;
-  }
-
-  .paso:nth-child(4) {
-    --orden: 3;
   }
 
   .paso:not(:last-child)::before {
