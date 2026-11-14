@@ -7,11 +7,11 @@ const PASO_MS = 60;
 /** A partir del quinto bloque de una tanda ya no se añade más espera. */
 const MAXIMO_DE_PASOS = 4;
 /**
- * Tiempo tras el cual el bloque vuelve a sus propios estilos. Cubre la entrada
- * más larga del sitio: la secuencia de «Cómo trabajamos» (660 ms de espera del
- * último paso + 500 ms de entrada).
+ * Plazo máximo tras el cual un bloque vuelve a sus propios estilos. Solo lo
+ * agotan los bloques que no se funden enteros sino por partes; el más largo es
+ * el cierre, cuyo ∞ tarda 800 ms en trazarse.
  */
-const LIMPIEZA_MS = 1600;
+const LIMPIEZA_MS = 1200;
 
 /**
  * Hace aparecer, una sola vez, los bloques marcados con `data-revelar` cuando
@@ -28,9 +28,11 @@ export function RevelarAlEntrar() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     const bloques = [...document.querySelectorAll<HTMLElement>('[data-revelar]')];
-    const temporizadores = new Set<number>();
+    const plazos = new Map<HTMLElement, number>();
 
     const soltar = (bloque: HTMLElement) => {
+      window.clearTimeout(plazos.get(bloque));
+      plazos.delete(bloque);
       bloque.dataset.revelar = '';
       bloque.style.removeProperty('--retraso-revelar');
     };
@@ -38,11 +40,7 @@ export function RevelarAlEntrar() {
     const mostrar = (bloque: HTMLElement, orden: number) => {
       bloque.style.setProperty('--retraso-revelar', `${Math.min(orden, MAXIMO_DE_PASOS) * PASO_MS}ms`);
       bloque.dataset.revelar = 'visible';
-      const temporizador = window.setTimeout(() => {
-        temporizadores.delete(temporizador);
-        soltar(bloque);
-      }, LIMPIEZA_MS);
-      temporizadores.add(temporizador);
+      plazos.set(bloque, window.setTimeout(() => soltar(bloque), LIMPIEZA_MS));
     };
 
     const observador = new IntersectionObserver(
@@ -78,6 +76,16 @@ export function RevelarAlEntrar() {
       { rootMargin: '100000px 0px -12% 0px' },
     );
 
+    // Un bloque que se funde entero termina su entrada cuando acaba ese
+    // fundido: en ese instante recupera sus propios estilos (su respuesta al
+    // cursor, por ejemplo) sin esperar al plazo. Los avisos de sus hijos y de
+    // sus pseudoelementos no cuentan.
+    const alTerminar = (evento: TransitionEvent) => {
+      const bloque = evento.target;
+      if (!(bloque instanceof HTMLElement) || bloque.dataset.revelar !== 'visible') return;
+      if (evento.propertyName === 'opacity' && evento.pseudoElement === '') soltar(bloque);
+    };
+
     // El foco nunca cae sobre algo que no se ve: si el teclado llega a un bloque
     // que aún espera su turno, aparece al instante.
     const alEnfocar = (evento: FocusEvent) => {
@@ -89,12 +97,13 @@ export function RevelarAlEntrar() {
     };
 
     for (const bloque of bloques) observador.observe(bloque);
+    document.addEventListener('transitionend', alTerminar);
     document.addEventListener('focusin', alEnfocar);
 
     return () => {
       observador.disconnect();
+      document.removeEventListener('transitionend', alTerminar);
       document.removeEventListener('focusin', alEnfocar);
-      for (const temporizador of temporizadores) window.clearTimeout(temporizador);
       for (const bloque of bloques) soltar(bloque);
     };
   }, []);
