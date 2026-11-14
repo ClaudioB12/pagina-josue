@@ -44,7 +44,8 @@
 
 /*
  * Entrada: el bloque no se mueve entero. El ∞ se traza (ver Logo.module.css)
- * y el texto llega detrás, cuando el trazo ya está en marcha.
+ * y, a la vez, llegan el título, el texto y los botones, de arriba abajo. Lo
+ * que se viene a leer y a pulsar no espera al adorno.
  */
 .contenido[data-revelar='pendiente'] {
   opacity: 1;
@@ -60,15 +61,14 @@
   transition:
     opacity var(--duracion-entrada) var(--curva-salida),
     transform var(--duracion-entrada) var(--curva-salida);
-  transition-delay: 280ms;
 }
 
 .contenido[data-revelar='visible'] > .texto {
-  transition-delay: calc(280ms + var(--paso-escalonado));
+  transition-delay: var(--paso-escalonado);
 }
 
 .contenido[data-revelar='visible'] > .acciones {
-  transition-delay: calc(280ms + var(--paso-escalonado) * 2);
+  transition-delay: calc(var(--paso-escalonado) * 2);
 }
 
 /* Con movimiento reducido el bloque está completo desde el principio */
