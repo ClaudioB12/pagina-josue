@@ -60,11 +60,15 @@
 .enlace {
   color: var(--color-gris-300);
   text-decoration: none;
+  transition: color var(--duracion-color) ease;
 }
 
-.enlace:hover {
-  color: #FFFFFF;
-  text-decoration: underline;
+/* El cursor solo resalta donde existe: en táctil el hover se queda pegado tras tocar */
+@media (hover: hover) and (pointer: fine) {
+  .enlace:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+  }
 }
 
 .lista {
