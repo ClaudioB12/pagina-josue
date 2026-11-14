@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useRef, useState, type FocusEvent } from 'react';
+import { useEffect, useId, useRef, useState, type FocusEvent, type MouseEvent } from 'react';
 import { Boton } from '@/components/ui/Boton';
 import { Icono } from '@/components/ui/Icono';
 import { unirClases } from '@/lib/clases';
@@ -26,6 +26,9 @@ const CONSULTA_ESCRITORIO = '(min-width: 62rem)';
  */
 const LINEA_DE_LECTURA = '-45% 0px -55% 0px';
 
+/** Un clic sin puntero (Enter, Espacio o una tecnología de apoyo) llega con `detail` 0. */
+const vieneDelTeclado = (evento: MouseEvent<HTMLElement>) => evento.detail === 0;
+
 /**
  * Menú principal.
  *
@@ -33,10 +36,13 @@ const LINEA_DE_LECTURA = '-45% 0px -55% 0px';
  * informa su estado con `aria-expanded`; se cierra con Escape (devolviendo el
  * foco al botón), al elegir un enlace, al pulsar fuera o cuando el foco sale
  * del menú. El enlace de la sección que se está viendo lleva `aria-current`.
+ *
+ * Con el dedo o el ratón el panel se despliega en 200 ms. Con el teclado abre
+ * y cierra al instante: lo que se pide con una tecla no se hace esperar.
  */
 export function MenuPrincipal({ enlaces, accion, etiquetaBoton, etiquetaNavegacion }: PropsMenuPrincipal) {
   const [abierto, setAbierto] = useState(false);
-  /** Cierre pedido con el teclado: se aplica sin transición. */
+  /** Último cambio pedido con el teclado: se aplica sin transición. */
   const [inmediato, setInmediato] = useState(false);
   const [seccionActual, setSeccionActual] = useState<string | null>(null);
   const contenedor = useRef<HTMLDivElement>(null);
@@ -53,7 +59,9 @@ export function MenuPrincipal({ enlaces, accion, etiquetaBoton, etiquetaNavegaci
       boton.current?.focus();
     };
     const alPulsarFuera = (evento: PointerEvent) => {
-      if (evento.target instanceof Node && !contenedor.current?.contains(evento.target)) setAbierto(false);
+      if (!(evento.target instanceof Node) || contenedor.current?.contains(evento.target)) return;
+      setInmediato(false);
+      setAbierto(false);
     };
     const escritorio = window.matchMedia(CONSULTA_ESCRITORIO);
     const alCambiarAncho = () => {
@@ -98,17 +106,22 @@ export function MenuPrincipal({ enlaces, accion, etiquetaBoton, etiquetaNavegaci
   }, [enlaces]);
 
   const alSalirElFoco = (evento: FocusEvent<HTMLDivElement>) => {
+    // Si se pulsó fuera, el puntero ya lo cerró: aquí solo llega abierto
+    // cuando el foco sale tabulando.
+    if (!abierto) return;
     const destino = evento.relatedTarget;
-    if (destino instanceof Node && !evento.currentTarget.contains(destino)) setAbierto(false);
+    if (!(destino instanceof Node) || evento.currentTarget.contains(destino)) return;
+    setInmediato(true);
+    setAbierto(false);
   };
 
-  const alternar = () => {
-    setInmediato(false);
+  const alternar = (evento: MouseEvent<HTMLButtonElement>) => {
+    setInmediato(vieneDelTeclado(evento));
     setAbierto((valor) => !valor);
   };
 
-  const cerrar = () => {
-    setInmediato(false);
+  const cerrar = (evento: MouseEvent<HTMLAnchorElement>) => {
+    setInmediato(vieneDelTeclado(evento));
     setAbierto(false);
   };
 
@@ -125,6 +138,7 @@ export function MenuPrincipal({ enlaces, accion, etiquetaBoton, etiquetaNavegaci
           aria-label={etiquetaBoton}
           aria-expanded={abierto}
           aria-controls={idPanel}
+          data-inmediato={inmediato}
           onClick={alternar}
         >
           <Icono nombre="menu" className={unirClases(estilos.icono, estilos.iconoMenu)} />

@@ -112,9 +112,13 @@
     visibility 0s;
 }
 
-/* Lo que se pide con el teclado no se hace esperar: Escape cierra sin transición */
+/*
+ * Lo que se pide con el teclado no se hace esperar: con Enter, Espacio, Escape
+ * o al salir tabulando, el panel, el velo y el icono cambian sin transición.
+ */
 .panel[data-inmediato='true'],
-.velo[data-inmediato='true'] {
+.velo[data-inmediato='true'],
+.botonMenu[data-inmediato='true'] .icono {
   transition: none;
 }
 
