@@ -85,8 +85,8 @@
   transition: stroke-dashoffset var(--medio-trazo) cubic-bezier(0.275, 0.5, 0.55, 1) var(--medio-trazo);
 }
 
-/* Con movimiento reducido el símbolo ya está dibujado */
-@media (prefers-reduced-motion: reduce) {
+/* Con movimiento reducido, y al imprimir, el símbolo ya está dibujado */
+@media (prefers-reduced-motion: reduce), print {
   [data-revelar='pendiente'] .trazable .anilloA,
   [data-revelar='pendiente'] .trazable .anilloB,
   [data-revelar='visible'] .trazable .anilloA,

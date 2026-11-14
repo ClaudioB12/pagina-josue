@@ -181,8 +181,8 @@
   }
 }
 
-/* Con movimiento reducido la línea ya está dibujada y cada paso está en su sitio */
-@media (prefers-reduced-motion: reduce) {
+/* Con movimiento reducido, y al imprimir, la línea ya está dibujada y cada paso está en su sitio */
+@media (prefers-reduced-motion: reduce), print {
   .paso[data-revelar='pendiente'] > *,
   .paso[data-revelar='pendiente']::before {
     opacity: 1;

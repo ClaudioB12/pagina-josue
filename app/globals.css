@@ -236,8 +236,9 @@ html [data-revelar='visible'] {
 /*
  * Con movimiento reducido no hay apariciones: el script no oculta nada y, si
  * la preferencia cambia con la página abierta, todo queda en su estado final.
+ * Al imprimir tampoco: lo que aún no había aparecido se imprime igualmente.
  */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce), print {
   html [data-revelar='pendiente'] {
     opacity: 1;
     transform: none;

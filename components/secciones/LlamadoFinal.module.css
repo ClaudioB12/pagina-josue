@@ -71,8 +71,8 @@
   transition-delay: calc(var(--paso-escalonado) * 2);
 }
 
-/* Con movimiento reducido el bloque está completo desde el principio */
-@media (prefers-reduced-motion: reduce) {
+/* Con movimiento reducido, y al imprimir, el bloque está completo desde el principio */
+@media (prefers-reduced-motion: reduce), print {
   .contenido[data-revelar='pendiente'] > :not(.simbolo) {
     opacity: 1;
     transform: none;
